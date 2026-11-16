@@ -13,7 +13,27 @@ npm run dev
 npm run build
 npm run preview
 ```
-Deploy `dist/`. Vercel rewrites are included. Other hosts must serve `index.html` for `/about` and `/terms` (and the legacy `/about.html` and `/terms.html` aliases).
+## Deploy on Render
+
+A Render Static Site Blueprint is provided in `render.yaml`.
+
+### New site with Blueprint
+1. Push this source to GitHub.
+2. In Render, choose **New > Blueprint** and connect the repository.
+3. Review and apply the Blueprint. It builds the project, publishes `dist/` and configures the SPA rewrite.
+
+### Existing site created manually
+Pushing `render.yaml` alone does not automatically reconfigure a manually created site. In the Render dashboard, set:
+- Service: **Static Site**
+- Root Directory: leave blank (repository root)
+- Build Command: `npm ci && npm run build`
+- Publish Directory: `dist`
+- Environment variable: `NODE_VERSION=22.14.0`
+- Redirects/Rewrites: source `/*`, destination `/index.html`, action **Rewrite**
+
+Save and use **Clear build cache & deploy**. A Web Service should be replaced with a Static Site for this frontend-only project.
+
+The rewrite supports `/about`, `/terms` and the legacy `.html` aliases. Do not publish the repository root or use Vite's development server as a production server.
 
 ## Structure
 - `index.html`: required Vite entry document, not a duplicate static website.
@@ -24,7 +44,7 @@ Deploy `dist/`. Vercel rewrites are included. Other hosts must serve `index.html
 - `src/styles/`: shared, non-duplicated CSS files.
 - `public/`: the banner, header logo and favicon actually used by the site.
 - `vite.config.js`, `package.json`, `package-lock.json`: build configuration and reproducible dependencies.
-- `vercel.json`: direct page-load support on Vercel.
+- `render.yaml`: Render Static Site build, publish directory and page rewrites.
 
 To update the Support Center redirect, change its `href` in `src/pages/Home.jsx`.
 

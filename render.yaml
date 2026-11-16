@@ -1,0 +1,14 @@
+# Render Blueprint: create via New > Blueprint to apply these settings.
+services:
+  - type: web
+    name: parihelp
+    runtime: static
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    envVars:
+      - key: NODE_VERSION
+        value: 22.14.0
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
