@@ -1,0 +1,16 @@
+/* Scroll reveals are enabled by JavaScript; without it content stays visible. */
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateX(-28px);
+    transition: opacity .6s ease, transform .6s cubic-bezier(.22, 1, .36, 1);
+  }
+  .scroll-reveal.is-visible { opacity: 1; transform: translateX(0); }
+  .important-feature { transition: transform .25s ease, border-color .25s ease, opacity .6s ease; }
+  @media (hover: hover) {
+    .important-feature.is-visible:hover { transform: translateY(-3px); border-color: #FFFF00; }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

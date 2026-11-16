@@ -1,0 +1,4 @@
+/* No extra layout box: preserve the original static page layout. */
+#root {
+  display: contents;
+}
