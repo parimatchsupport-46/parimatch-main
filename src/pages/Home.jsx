@@ -134,7 +134,7 @@ export default function Home() {
             {"\n"}
             <a
               className="btn primary"
-              href="https://crorebetsupport.vercel.app/"
+              href="https://parimatch-support.vercel.app"
               target="_blank"
               rel="noopener"
             >
